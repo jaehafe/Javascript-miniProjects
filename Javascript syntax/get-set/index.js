@@ -13,6 +13,10 @@ const person = {
   },
 };
 
+// getter: 읽기 전용
+console.log(person.fullName);
+
+// setter: 새로운 value 할당 가능(mutate)
 person.fullName = 'John Smith';
 
 console.log(person);
