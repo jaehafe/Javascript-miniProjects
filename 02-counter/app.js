@@ -1,28 +1,27 @@
-// set inital value to zero
+// 초기값 세팅
 let count = 0;
-// select value and buttons
-const value = document.querySelector("#value");
-const btns = document.querySelectorAll(".btn");
+
+const value = document.getElementById('value');
+const btns = document.querySelectorAll('.btn');
 
 btns.forEach(function (btn) {
-  btn.addEventListener("click", function (e) {
+  btn.addEventListener('click', function (e) {
     const styles = e.currentTarget.classList;
-    if (styles.contains("decrease")) {
+    if (styles.contains('decrease')) {
       count--;
-    } else if (styles.contains("increase")) {
+    } else if (styles.contains('increase')) {
       count++;
     } else {
       count = 0;
     }
-
     if (count > 0) {
-      value.style.color = "green";
+      value.style.color = 'red';
     }
     if (count < 0) {
-      value.style.color = "red";
+      value.style.color = 'blue';
     }
     if (count === 0) {
-      value.style.color = "#222";
+      value.style.color = '#222';
     }
     value.textContent = count;
   });
