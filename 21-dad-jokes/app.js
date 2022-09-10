@@ -1,31 +1,30 @@
-const url = "https://icanhazdadjoke.com/sss";
+const url = 'https://icanhazdadjoke.com/sss';
 
-const btn = document.querySelector(".btn");
-const result = document.querySelector(".result");
+const btn = document.querySelector('.btn');
+const result = document.querySelector('.result');
 
-btn.addEventListener("click", () => {
+btn.addEventListener('click', () => {
   fetchDadJoke();
 });
 
 const fetchDadJoke = async () => {
-  result.textContent = "Loading...";
+  result.textContent = 'Loading...';
   try {
-    const response = await fetch(url, {
+    const res = await fetch(url, {
       headers: {
-        Accept: "application/json",
-        "User-Agent": "learning app",
+        Accept: 'application/json',
+        'User-Agent': 'learning app',
       },
     });
-    if (!response.ok) {
-      throw new Error("error");
+    if (!res.ok) {
+      throw new Error('error');
     }
-    const data = await response.json();
-    // console.log(data);
+    const data = await res.json();
     result.textContent = data.joke;
   } catch (error) {
     console.log(error.message);
-    result.textContent = "There was an error...";
+    result.textContent = 'There was an error...';
   }
 };
 
-fetchDadJoke();
+fetchDadJoke(); // initial
