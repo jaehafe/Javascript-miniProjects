@@ -26,29 +26,7 @@ function App() {
     $('.menu-count').innerText = `총 ${menuCount}개`;
   };
 
-  $('#espresso-menu-list').addEventListener('click', (e) => {
-    if (e.target.classList.contains('menu-edit-button')) {
-      const $menuName = e.target.closest('li').querySelector('.menu-name');
-      const updatedMenuName = prompt(
-        '메뉴명을 수정하세요',
-        $menuName.textContent
-      );
-      $menuName.textContent = updatedMenuName;
-    }
-
-    if (e.target.classList.contains('menu-remove-button')) {
-      if (confirm('정말 삭제하시겠습니까?')) {
-        e.target.closest('li').remove();
-        updateMenuCount();
-      }
-    }
-  });
-
-  // form 태그 전송 prevent
-  $('#espresso-menu-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-  });
-
+  // 메뉴 이름 추가
   const addMenuName = () => {
     if ($('#espresso-menu-name').value === '') {
       alert('값을 입력해주세요');
@@ -82,9 +60,42 @@ function App() {
     $('#espresso-menu-name').value = '';
   };
 
-  $('#espresso-menu-submit-button').addEventListener('click', () => {
-    addMenuName();
+  // 메뉴 이름 업데이트 함수
+  const updateMenuName = (e) => {
+    const $menuName = e.target.closest('li').querySelector('.menu-name');
+    const updatedMenuName = prompt(
+      '메뉴명을 수정하세요',
+      $menuName.textContent
+    );
+    $menuName.textContent = updatedMenuName;
+  };
+
+  // 메뉴 이름 삭제 함수
+  const removeMenuName = (e) => {
+    if (confirm('정말 삭제하시겠습니까?')) {
+      e.target.closest('li').remove();
+      updateMenuCount();
+    }
+  };
+
+  // 수정 버튼 클릭, 삭제
+  $('#espresso-menu-list').addEventListener('click', (e) => {
+    if (e.target.classList.contains('menu-edit-button')) {
+      updateMenuName(e);
+    }
+
+    if (e.target.classList.contains('menu-remove-button')) {
+      removeMenuName(e);
+    }
   });
+
+  // form 태그 전송 prevent
+  $('#espresso-menu-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+  });
+
+  // 메뉴 추가 버튼
+  $('#espresso-menu-submit-button').addEventListener('click', addMenuName);
 
   // 메뉴의 이름 입력 받음
   $('#espresso-menu-name').addEventListener('keypress', (e) => {
