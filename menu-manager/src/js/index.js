@@ -116,6 +116,8 @@ function App() {
   // 메뉴 이름 삭제 함수
   const removeMenuName = (e) => {
     if (confirm('정말 삭제하시겠습니까?')) {
+      const menuId = e.target.closest('li').dataset.menuId;
+      this.menu.splice(menuId, 1);
       e.target.closest('li').remove();
       updateMenuCount();
     }
