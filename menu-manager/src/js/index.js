@@ -34,29 +34,21 @@ const store = {
     localStorage.setItem('menu', JSON.stringify(menu));
   },
   getLocalStorage() {
-    localStorage.getItem('menu');
+    return JSON.parse(localStorage.getItem('menu'));
   },
 };
 
 function App() {
   // 상태(변경되는 값) - 개수, 메뉴명
   this.menu = [];
-
-  // 총 메뉴 개수
-  const updateMenuCount = () => {
-    const menuCount = $('#espresso-menu-list').querySelectorAll('li').length;
-    $('.menu-count').innerText = `총 ${menuCount}개`;
+  this.init = () => {
+    if (store.getLocalStorage().length > 1) {
+      this.menu = store.getLocalStorage();
+    }
+    render();
   };
 
-  // 메뉴 이름 추가
-  const addMenuName = () => {
-    if ($('#espresso-menu-name').value === '') {
-      alert('값을 입력해주세요');
-      return;
-    }
-    const espressoMenuName = $('#espresso-menu-name').value;
-    this.menu.push({ name: espressoMenuName });
-    store.setLocalStorage(this.menu);
+  const render = () => {
     const template = this.menu
       .map((menuItem, index) => {
         return `<li data-menu-id="${index}" class="menu-list-item d-flex items-center py-2">
@@ -77,26 +69,26 @@ function App() {
       })
       .join('');
 
-    // const menuItemTemplate = (espressoMenuName) => {
-    //   return `<li class="menu-list-item d-flex items-center py-2">
-    //       <span class="w-100 pl-2 menu-name">${item.name}</span>
-    //       <button
-    //         type="button"
-    //         class="bg-gray-50 text-gray-500 text-sm mr-1 menu-edit-button"
-    //       >
-    //         수정
-    //       </button>
-    //       <button
-    //         type="button"
-    //         class="bg-gray-50 text-gray-500 text-sm menu-remove-button"
-    //       >
-    //         삭제
-    //       </button>
-    //     </li>`;
-    // };
-
     $('#espresso-menu-list').innerHTML = template;
     updateMenuCount();
+  };
+
+  // 총 메뉴 개수
+  const updateMenuCount = () => {
+    const menuCount = $('#espresso-menu-list').querySelectorAll('li').length;
+    $('.menu-count').innerText = `총 ${menuCount}개`;
+  };
+
+  // 메뉴 이름 추가
+  const addMenuName = () => {
+    if ($('#espresso-menu-name').value === '') {
+      alert('값을 입력해주세요');
+      return;
+    }
+    const espressoMenuName = $('#espresso-menu-name').value;
+    this.menu.push({ name: espressoMenuName });
+    store.setLocalStorage(this.menu);
+    render();
     $('#espresso-menu-name').value = '';
   };
 
@@ -118,6 +110,7 @@ function App() {
     if (confirm('정말 삭제하시겠습니까?')) {
       const menuId = e.target.closest('li').dataset.menuId;
       this.menu.splice(menuId, 1);
+      store.setLocalStorage(this.menu);
       e.target.closest('li').remove();
       updateMenuCount();
     }
@@ -152,3 +145,4 @@ function App() {
 }
 
 const app = new App();
+app.init();
