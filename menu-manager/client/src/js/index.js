@@ -93,7 +93,18 @@ const MenuApi = {
     if (!response.ok) {
       console.error('에러가 발생했습니다.');
     }
-    return response.json();
+  },
+
+  async deleteMenu(category, menuId) {
+    const response = await fetch(
+      `${BASE_URL}/category/${category}/menu/${menuId}`,
+      {
+        method: 'DELETE',
+      }
+    );
+    if (!response.ok) {
+      console.error('에러가 발생했습니다.');
+    }
   },
 };
 
@@ -200,14 +211,14 @@ function App() {
   };
 
   // 메뉴 이름 삭제 함수
-  const removeMenuName = (e) => {
+  const removeMenuName = async (e) => {
     if (confirm('정말 삭제하시겠습니까?')) {
       const menuId = e.target.closest('li').dataset.menuId;
-      this.menu[this.currentCategory].splice(menuId, 1);
-      store.setLocalStorage(this.menu);
-      // e.target.closest('li').remove(); 직접 삭제하는 것보단 일관성 부여해서 render()
+      await MenuApi.deleteMenu(this.currentCategory, menuId);
+      this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(
+        this.currentCategory
+      );
       render();
-      // updateMenuCount(); 렌더 함수에 한꺼번에 부여
     }
   };
 
