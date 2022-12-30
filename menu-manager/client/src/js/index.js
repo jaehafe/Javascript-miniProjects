@@ -46,6 +46,37 @@ import store from './store/index.js';
 
 const BASE_URL = 'http://localhost:3000/api';
 
+const MenuApi = {
+  async getAllMenuByCategory(category) {
+    // 전체 메뉴를 서버에서 불러오기
+    const response = await fetch(`${BASE_URL}/category/${category}/menu`);
+    return response.json();
+  },
+
+  async createMenu(category, name) {
+    const response = await fetch(`${BASE_URL}/category/${category}/menu`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name: name }),
+    });
+    if (!response.ok) {
+      console.error('에러가 발생했습니다.');
+    }
+  },
+
+  // await fetch(`${BASE_URL}/category/${this.currentCategory}/menu`, {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  //   body: JSON.stringify({ name: menuName }),
+  // }).then((response) => {
+  //   return response.json();
+  // });
+};
+
 function App() {
   // 상태(변경되는 값) - 개수, 메뉴명
   this.menu = {
@@ -56,9 +87,13 @@ function App() {
     desert: [],
   };
   this.currentCategory = 'espresso';
-  this.init = () => {
-    this.menu = store.getLocalStorage();
 
+  // 현재 카테고리를 처음 화면에 렌더링
+  this.init = async () => {
+    this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(
+      this.currentCategory
+    );
+    console.log(MenuApi.getAllMenuByCategory(this.currentCategory));
     render();
     initEventListeners();
   };
@@ -115,25 +150,14 @@ function App() {
     const menuName = $('#menu-name').value;
 
     // fetch 메뉴 추가
-    await fetch(`${BASE_URL}/category/${this.currentCategory}/menu`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name: menuName }),
-    }).then((response) => {
-      return response.json();
-    });
+    await MenuApi.createMenu(this.currentCategory, menuName);
 
-    await fetch(`${BASE_URL}/category/${this.currentCategory}/menu`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        this.menu[this.currentCategory] = data;
-        render();
-        $('#menu-name').value = '';
-      });
+    // 전체 메뉴를 서버에서 불러오기
+    this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(
+      this.currentCategory
+    );
+    render();
+    $('#menu-name').value = '';
   };
 
   // 메뉴 이름 업데이트 함수
@@ -208,13 +232,16 @@ function App() {
     });
 
     // 각 카테고리 클릭 시, 클릭한 카테고리로 렌더링
-    $('nav').addEventListener('click', (e) => {
+    $('nav').addEventListener('click', async (e) => {
       const isCategoryButton =
         e.target.classList.contains('cafe-category-name');
       if (isCategoryButton) {
         const categoryName = e.target.dataset.categoryName;
         this.currentCategory = categoryName;
         $('#category-title').textContent = `${e.target.textContent} 메뉴 관리`;
+        this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(
+          this.currentCategory
+        );
         render();
       }
     });
