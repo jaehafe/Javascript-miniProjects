@@ -82,6 +82,19 @@ const MenuApi = {
     }
     return response.json();
   },
+
+  async toggleSoldOutMenu(category, menuId) {
+    const response = await fetch(
+      `${BASE_URL}/category/${category}/menu/${menuId}/soldout`,
+      {
+        method: 'PUT',
+      }
+    );
+    if (!response.ok) {
+      console.error('에러가 발생했습니다.');
+    }
+    return response.json();
+  },
 };
 
 function App() {
@@ -114,7 +127,7 @@ function App() {
           menuItem.id
         }" class="menu-list-item d-flex items-center py-2">
           <span class="w-100 pl-2 menu-name ${
-            menuItem.soldOut ? 'sold-out' : ''
+            menuItem.isSoldOut ? 'sold-out' : ''
           }">${menuItem.name}</span>
           <button
             type="button"
@@ -142,7 +155,7 @@ function App() {
     updateMenuCount();
   };
 
-  // 총 메뉴 개수
+  // 총 메뉴 개수 업데이트 함수
   const updateMenuCount = () => {
     const menuCount = $('#menu-list').querySelectorAll('li').length;
     $('.menu-count').innerText = `총 ${
@@ -199,12 +212,13 @@ function App() {
   };
 
   // 메뉴 이름 품절 처리 함수
-  const soldOutMenu = (e) => {
+  const soldOutMenu = async (e) => {
     const menuId = e.target.closest('li').dataset.menuId;
-    // bool 값 부여
-    this.menu[this.currentCategory][menuId].soldOut =
-      !this.menu[this.currentCategory][menuId].soldOut;
-    store.setLocalStorage(this.menu);
+    await MenuApi.toggleSoldOutMenu(this.currentCategory, menuId);
+    this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(
+      this.currentCategory
+    );
+
     render();
   };
 
