@@ -1,0 +1,15 @@
+@use '../util' as u;
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Do Hyeon', sans-serif;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+}
