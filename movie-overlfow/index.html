@@ -5,7 +5,79 @@
     <link rel="icon" type="image/svg+xml" href="/movie-logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>movie Overflow</title>
+    <!-- google icons -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
+    <!-- js -->
     <script type="module" src="/main.js" defer></script>
   </head>
-  <body></body>
+  <body>
+    <header>
+      <div class="header__container">
+        <nav class="header__nav">
+          <div class="header__nav-wrapper">
+            <div class="header__nav-logo">
+              <a href="#"
+                ><img
+                  src="movie-logo.svg"
+                  alt="logo"
+                  class="header__nav-logo--svg"
+                />
+              </a>
+              <h1>movie <span>Overflow</span></h1>
+            </div>
+            <div class="header__nav-list">
+              <a href="#"><span>홈</span></a>
+              <a href="#"><span>New</span></a>
+              <a href="#"><span>인기</span></a>
+              <a href="#"><span>시청목록</span></a>
+            </div>
+          </div>
+
+          <form class="header__nav-buttons">
+            <a href="#" class="header__nav-buttons--feedback"
+              ><span>피드백</span></a
+            >
+            <a href="#" class="header__nav-buttons--login"
+              ><span>로그인</span></a
+            >
+          </form>
+        </nav>
+      </div>
+      <div></div>
+    </header>
+
+    <!-- main  -->
+    <main class="main">
+      <div class="main__container">
+        <div class="main__conatiner-content">
+          <div class="main__container-content--logo">
+            <img
+              src="movie-logo.svg"
+              alt="logo"
+              class="main__container-content--logo-svg"
+            />
+            <h1>movie <span>Overflow</span></h1>
+          </div>
+
+          <div class="main__search">
+            <div class="main__search-padding">
+              <div class="main__search-container">
+                <span class="material-symbols-outlined main__search--icon">
+                  search
+                </span>
+                <input
+                  class="main__search--input"
+                  placeholder="what movie are you looking for?..."
+                />
+                <button class="main__search--button">찾기</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
 </html>
