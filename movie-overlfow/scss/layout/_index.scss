@@ -144,13 +144,16 @@ header {
     min-width: 200px;
 
     &-padding {
-      width: 60%;
+      width: 45%;
+      min-width: 350px;
     }
     &-container {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
 
       border: 1px solid var(--main-color);
+      border-radius: 8px;
+      box-shadow: var(--box-shadow);
     }
 
     &--icon {
@@ -182,7 +185,123 @@ header {
   }
 }
 
-// @include u.breakpoint(large) {
-//   grid-template-columns: 2fr 1fr;
-//   grid-template-rows: auto;
-// }
+.section {
+  margin: 20px auto;
+  max-width: 1024px;
+
+  // border: 1px solid;
+  box-shadow: var(--box-shadow);
+  border-radius: 7px;
+
+  &__container {
+    margin: 0 auto;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+
+    &-movie-card-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      row-gap: 20px;
+      place-items: center;
+
+      width: 100%;
+      padding: 10px;
+      border: 1px solid;
+    }
+
+    &-movie-card {
+      width: 220px;
+
+      box-shadow: var(--box-shadow);
+      border-radius: 7px;
+
+      &--img {
+        object-fit: fill;
+      }
+
+      &--thumb {
+      }
+
+      &--btn {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        &-add {
+          border: 1px solid;
+          padding: 5px;
+
+          background-color: inherit;
+          color: var(--main-color);
+          border: 1px solid;
+          border-radius: 7px;
+
+          &:hover {
+            border: 1px solid;
+            border-radius: 7px;
+            transition: background-color 0.2s ease-in-out;
+            background-color: opacity($color: #614b4b);
+          }
+        }
+
+        &-remove {
+          border: 1px solid;
+          padding: 5px;
+
+          background-color: var(--main-color);
+          color: #fff;
+          border-radius: 7px;
+
+          &:hover {
+            background-color: #fff;
+            color: var(--main-color);
+            border: 1px solid;
+            border-radius: 7px;
+            transition: background-color 0.5s ease;
+          }
+        }
+      }
+    }
+  }
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+@include u.breakpoint-down(medium) {
+  .section {
+    &__container {
+      &-movie-card-container {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  }
+}
+
+@include u.breakpoint-down(small) {
+  .section {
+    //
+    &__container {
+      //
+      &-movie-card-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
+}
+
+@include u.breakpoint-down(xsmall) {
+  .section {
+    //
+    &__container {
+      //
+      &-movie-card-container {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
+  }
+}

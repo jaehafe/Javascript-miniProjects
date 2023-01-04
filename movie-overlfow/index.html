@@ -70,14 +70,52 @@
                 </span>
                 <input
                   class="main__search--input"
+                  id="searchInput"
                   placeholder="what movie are you looking for?..."
                 />
-                <button class="main__search--button">찾기</button>
+                <button
+                  type="submit"
+                  id="searchBtn"
+                  class="main__search--button"
+                >
+                  찾기
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
     </main>
+
+    <!-- result -->
+    <section class="section">
+      <div class="section__container">
+        <div class="section__container-movie-card-container">
+          <div class="section__container-movie-card">
+            <a href="#">
+              <img
+                src="./public/thum.jpeg"
+                alt=""
+                class="section__container-movie-card--img"
+              />
+            </a>
+            <div class="flex">
+              <div class="section__container-movie-card--thumb">
+                <p class="section__container-movie-card--year">2015</p>
+                <h2 class="section__container-movie-card--title">dropbox</h2>
+              </div>
+              <div class="section__container-movie-card--btn">
+                <button class="section__container-movie-card--btn-add">
+                  추가
+                </button>
+                <button class="section__container-movie-card--btn-remove">
+                  삭제
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </body>
 </html>
