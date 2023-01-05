@@ -11,6 +11,7 @@ import './scss/style.scss';
 //   }
 // })
 
+// modal close
 const openModalButtons = document.querySelectorAll('[data-modal-target]');
 const closeModalButtons = document.querySelectorAll('[data-close-button]');
 const overlay = document.getElementById('overlay');
@@ -47,3 +48,5 @@ const closeModal = (modal) => {
   modal.classList.remove('active');
   overlay.classList.remove('active');
 };
+
+// api
