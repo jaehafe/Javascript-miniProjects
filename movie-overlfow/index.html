@@ -92,13 +92,40 @@
       <div class="section__container">
         <div class="section__container-movie-card-container">
           <div class="section__container-movie-card">
-            <a href="#">
+            <button href="#">
               <img
-                src="./public/thum.jpeg"
+                data-modal-target="#modal"
+                src="/thum.jpeg"
                 alt=""
                 class="section__container-movie-card--img"
               />
-            </a>
+            </button>
+            <div class="flex">
+              <div class="section__container-movie-card--thumb">
+                <p class="section__container-movie-card--year">2015</p>
+                <h2 class="section__container-movie-card--title">dropbox</h2>
+              </div>
+              <div class="section__container-movie-card--btn">
+                <button class="section__container-movie-card--btn-add">
+                  추가
+                </button>
+                <button class="section__container-movie-card--btn-remove">
+                  삭제
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Second -->
+          <div class="section__container-movie-card">
+            <button href="#">
+              <img
+                data-modal-target="#modal"
+                src="/thum.jpeg"
+                alt=""
+                class="section__container-movie-card--img"
+              />
+            </button>
             <div class="flex">
               <div class="section__container-movie-card--thumb">
                 <p class="section__container-movie-card--year">2015</p>
@@ -117,5 +144,35 @@
         </div>
       </div>
     </section>
+
+    <!-- modal overlay -->
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <div class="modal-header-title">movie detail</div>
+        <button data-close-button class="modal-header-close-button">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <img src="/thum.jpeg" alt="modal poster" />
+        <div>
+          <div class="modal-body-container">
+            <div class="movie-modal__header">
+              <div class="movie-modal__header-title">Dropbox</div>
+              <div class="movie-modal__header-rate">
+                <span class="material-symbols-outlined"> star </span>
+                <div class="movie-modal__header-rate--number">7.4</div>
+              </div>
+            </div>
+            <div>
+              <div class="movie-modal-tag">Action, Sci-Fi</div>
+              <div>121 min</div>
+            </div>
+            <div>Director</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="overlay"></div>
   </body>
 </html>

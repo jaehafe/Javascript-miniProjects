@@ -215,9 +215,14 @@ header {
 
       box-shadow: var(--box-shadow);
       border-radius: 7px;
+      overflow: hidden;
 
       &--img {
         object-fit: fill;
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.7);
+        }
       }
 
       &--thumb {
@@ -271,6 +276,78 @@ header {
   justify-content: space-between;
   padding: 5px;
 }
+
+// movie modal-overlay
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: clamp(380px, 80%, 1024px);
+  height: clamp(700px, 80%, 800px);
+
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
+
+  z-index: 10;
+  padding: 50px;
+  background-color: #fff;
+  border: 1px solid black;
+  border-radius: 10px;
+
+  &.active {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    // border-bottom: 1px solid;
+    padding: 0px 15px;
+
+    &-title {
+    }
+
+    &-close-button {
+      // padding: 4px 10px;
+      width: 30px;
+      height: 30px;
+      font-size: 20px;
+      border-radius: 7px;
+      border: 1px solid var(--main-color);
+
+      &:hover {
+        background-color: #f48225;
+        color: #fff;
+      }
+    }
+  }
+
+  &-body {
+    padding: 10px 15px;
+  }
+}
+
+#overlay {
+  position: fixed;
+  opacity: 0;
+
+  transition: 200ms ease-in-out;
+
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+
+  &.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+// #overlay
 
 @include u.breakpoint-down(medium) {
   .section {
