@@ -64,10 +64,11 @@
 
           <div class="main__search">
             <div class="main__search-padding">
-              <div class="main__search-container">
+              <form class="main__search-container">
                 <span class="material-symbols-outlined main__search--icon">
                   search
                 </span>
+                <option value=""></option>
                 <input
                   class="main__search--input"
                   id="searchInput"
@@ -80,9 +81,16 @@
                 >
                   찾기
                 </button>
-              </div>
+              </form>
             </div>
           </div>
+          <div class="main__search--result">
+            spider이(가) 총 10개 검색되었습니다.
+          </div>
+          <nav class="main__category">
+            <button data-category-name="main">서치</button>
+            <button data-category-name="watchList">watch list</button>
+          </nav>
         </div>
       </div>
     </main>
@@ -92,7 +100,7 @@
       <div class="section__container">
         <div class="section__container-movie-card-container">
           <!-- Card -->
-          <div class="section__container-movie-card">
+          <div class="section__container-movie-card" data-movie-id="movie-id">
             <button href="#">
               <img
                 data-modal-target="#modal"
@@ -107,17 +115,21 @@
                 <h2 class="section__container-movie-card--title">dropbox</h2>
               </div>
               <div class="section__container-movie-card--btn">
-                <button class="section__container-movie-card--btn-add">
+                <button
+                  class="section__container-movie-card--btn-add movie-add-button"
+                >
                   추가
                 </button>
-                <button class="section__container-movie-card--btn-remove">
+                <button
+                  class="section__container-movie-card--btn-remove movie-remove-button"
+                >
                   삭제
                 </button>
               </div>
             </div>
           </div>
 
-          <!-- Second Card -->
+          <!-- Second Card start -->
           <div class="section__container-movie-card">
             <button href="#">
               <img
@@ -142,6 +154,7 @@
               </div>
             </div>
           </div>
+          <!-- second card end -->
         </div>
       </div>
     </section>

@@ -111,10 +111,11 @@ header {
   text-align: center;
 
   &__container {
-    padding: 100px 0px;
+    padding: 40px 0px;
     min-width: 200px;
     box-shadow: var(--box-shadow);
     border-radius: 7px;
+    margin-bottom: 10px;
     &-content {
       &--logo {
         display: flex;
@@ -139,8 +140,10 @@ header {
 
   &__search {
     display: flex;
+    // flex-direction: column;
     justify-content: center;
     margin: auto;
+    margin-bottom: 20px;
     max-width: 90%;
     min-width: 200px;
 
@@ -186,6 +189,33 @@ header {
   }
 }
 
+// error
+.error {
+  text-align: center;
+  font-size: 2rem;
+}
+
+// loading
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading {
+  width: 6rem;
+  height: 6rem;
+  border: 5px solid var(--grey-400);
+  border-radius: 50%;
+  border-top-color: var(--primary-500);
+  animation: spinner 0.6s linear infinite;
+}
+.loading {
+  margin: 0 auto;
+  margin-top: 4rem;
+}
+
 .section {
   margin: 20px auto;
   max-width: 1024px;
@@ -213,13 +243,14 @@ header {
 
     &-movie-card {
       width: 220px;
+      height: 380px;
 
       box-shadow: var(--box-shadow);
       border-radius: 7px;
       overflow: hidden;
 
       &--img {
-        object-fit: fill;
+        object-fit: contain;
 
         &:hover {
           background: rgba(0, 0, 0, 0.7);
