@@ -82,23 +82,27 @@ const fetchQuestions = async () => {
 };
 
 // api
-const getMovies = async (title = '', year = '', page = 1) => {
-  const s = `&s=${title}`;
-  const y = `&y=${year}`;
-  const p = `&page=${page}`;
-  const res = await fetch(
-    `https://omdbapi.com/?apikey=${import.meta.env.VITE_API_KEY}${s}${y}${p}`
-  );
-  const data = await res.json();
+const getMovies = async (title = '', year = '', page = 2) => {
+  $(
+    '.section__container-movie-card-container'
+  ).innerHTML = `<div class='loading'></div>`;
+  try {
+    const s = `&s=${title}`;
+    const y = `&y=${year}`;
+    const p = `&page=${page}`;
+    const res = await fetch(
+      `https://omdbapi.com/?apikey=${import.meta.env.VITE_API_KEY}${s}${y}${p}`
+    );
+    const data = await res.json();
 
-  if (data.Response === 'True') {
-    const { Search: movies, totalResults } = data;
-    console.log(movies);
+    if (data.Response === 'True') {
+      const { Search: movies, totalResults } = data;
+      console.log(movies);
 
-    const movieTemplate = movies
-      .map((movie) => {
-        const { Poster, Title, Year, imdbID } = movie;
-        return `
+      const movieTemplate = movies
+        .map((movie) => {
+          const { Poster, Title, Year, imdbID } = movie;
+          return `
                 <div class="section__container-movie-card" data-movie-id="${imdbID}">
                   <button>
                     <img
@@ -128,16 +132,21 @@ const getMovies = async (title = '', year = '', page = 1) => {
                   </div>
                 </div>
                 `;
-      })
-      .join('');
-    cardContainer.innerHTML = movieTemplate;
+        })
+        .join('');
+      cardContainer.innerHTML = movieTemplate;
 
-    let search = $('#searchInput').value;
-    $(
-      '.main__search--result'
-    ).innerHTML = `${search}이(가) 총 ${totalResults} 개 검색되었습니다.`;
+      let search = $('#searchInput').value;
+      $(
+        '.main__search--result'
+      ).innerHTML = `${search}이(가) 총 ${totalResults} 개 검색되었습니다.`;
+    }
+  } catch (err) {
+    console.log(err);
+    $('.section__container-movie-card-container').innerHTML =
+      '<p class="error">there was an error</p>';
+    throw err;
   }
-  return data.Error;
 };
 
 $('.main__search-container').addEventListener('submit', (e) => {
