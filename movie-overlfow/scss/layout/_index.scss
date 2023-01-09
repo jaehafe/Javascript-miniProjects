@@ -230,6 +230,10 @@ header {
     display: flex;
     justify-content: center;
 
+    & > img {
+      width: 50px;
+      // margin: 0 auto;
+    }
     &-movie-card-container {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -238,7 +242,6 @@ header {
 
       width: 100%;
       padding: 10px;
-      border: 1px solid;
     }
 
     &-movie-card {

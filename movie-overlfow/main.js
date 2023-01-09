@@ -15,6 +15,9 @@ import './scss/style.scss';
 const openModalButtons = document.querySelectorAll('[data-modal-target]');
 const closeModalButtons = document.querySelectorAll('[data-close-button]');
 const overlay = document.getElementById('overlay');
+const cardContainer = document.querySelector(
+  '.section__container-movie-card-container'
+);
 const $ = (selector) => document.querySelector(selector);
 
 openModalButtons.forEach((button) => {
@@ -63,6 +66,8 @@ const errorHandle = {
   },
 };
 
+//
+
 const fetchQuestions = async () => {
   $('.questionsDOM').innerHTML = `<div class='loading'></div>`;
   try {
@@ -77,7 +82,7 @@ const fetchQuestions = async () => {
 };
 
 // api
-const getMovies = async (title, year = '', page = 1) => {
+const getMovies = async (title = '', year = '', page = 1) => {
   const s = `&s=${title}`;
   const y = `&y=${year}`;
   const p = `&page=${page}`;
@@ -125,15 +130,24 @@ const getMovies = async (title, year = '', page = 1) => {
                 `;
       })
       .join('');
-    $('.section__container-movie-card-container').insertAdjacent(
-      'afterbegin',
-      movieTemplate
-    );
+    cardContainer.innerHTML = movieTemplate;
+
+    let search = $('#searchInput').value;
+    $(
+      '.main__search--result'
+    ).innerHTML = `${search}이(가) 총 ${totalResults} 개 검색되었습니다.`;
   }
   return data.Error;
 };
 
-getMovies('spider');
+$('.main__search-container').addEventListener('submit', (e) => {
+  e.preventDefault();
+  let search = $('#searchInput').value;
+  if (search) {
+    getMovies(search);
+    search = '';
+  }
+});
 
 // const displayMovies = async (title) => {
 //   const movieList = await getMovies(title);
