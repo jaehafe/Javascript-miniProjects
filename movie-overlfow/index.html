@@ -68,12 +68,23 @@
                 <span class="material-symbols-outlined main__search--icon">
                   search
                 </span>
-                <option value=""></option>
                 <input
                   class="main__search--input"
                   id="searchInput"
-                  placeholder="what movie are you looking for?..."
+                  placeholder="영화 제목을 입력하세요"
                 />
+                <div class="main__search--options">
+                  <select class="main__search--options-page">
+                    <option data-select-value="1" selected="selected">
+                      10
+                    </option>
+                    <option data-select-value="2">20</option>
+                    <option data-select-value="3">30</option>
+                  </select>
+                  <select class="main__search--options-select-year">
+                    <option value="" selected="selected">All Years</option>
+                  </select>
+                </div>
                 <button
                   type="submit"
                   id="searchBtn"
@@ -87,14 +98,39 @@
           <div class="main__search--result">
             <!-- <span id="movieSearchTitle"></span> 이(가) 총
             <span id="totalResult"></span> 개 검색되었습니다. -->
+            <!-- loading ui start -->
+            <!-- <svg
+              class="spinner active"
+              width="65px"
+              height="65px"
+              viewBox="0 0 66 66"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                class="path"
+                fill="none"
+                stroke-width="6"
+                stroke-linecap="round"
+                cx="33"
+                cy="33"
+                r="30"
+              ></circle>
+            </svg> -->
+            <!-- loading ui end -->
           </div>
-          <nav class="main__category">
+          <!-- <nav class="main__category">
             <button data-category-name="main">서치</button>
             <button data-category-name="watchList">watch list</button>
-          </nav>
+          </nav> -->
         </div>
       </div>
     </main>
+
+    <div class="scroll-top">
+      <button class="scroll-top__btn">
+        <span class="material-symbols-outlined">arrow_upward </span>
+      </button>
+    </div>
 
     <!-- result -->
     <section class="section">
@@ -106,19 +142,21 @@
             aria-label="hidden"
           />
           <!-- Card -->
-          <!-- <div class="section__container-movie-card" data-movie-id="movie-id">
-            <button href="#">
+          <div class="section__container-movie-card" data-movie-id="${imdbID}">
+            <button class="movie-detail" data-modal-target="#modal">
               <img
-                data-modal-target="#modal"
-                src="/thum.jpeg"
-                alt=""
+                src="thum.jpeg"
+                alt="thumbnail"
                 class="section__container-movie-card--img"
               />
             </button>
             <div class="flex">
               <div class="section__container-movie-card--thumb">
-                <p class="section__container-movie-card--year">2015</p>
-                <h2 class="section__container-movie-card--title">dropbox</h2>
+                <p class="section__container-movie-card--year">${Year}</p>
+                <h2 class="section__container-movie-card--title">
+                  ${ Title.length > 10 ? Title.substring(0, 10).concat(' ...') :
+                  Title }
+                </h2>
               </div>
               <div class="section__container-movie-card--btn">
                 <button
@@ -133,10 +171,13 @@
                 </button>
               </div>
             </div>
-          </div> -->
+          </div>
         </div>
       </div>
     </section>
+    <div id="infinite-scroll__target" aria-label="loading">
+      <div aria-label="loading"></div>
+    </div>
 
     <!-- modal overlay -->
     <div class="modal" id="modal">
@@ -205,7 +246,7 @@
               officiis distinctio ipsa.
             </div>
           </div>
-          <!--  -->
+          <!-- modal body end -->
         </div>
       </div>
     </div>

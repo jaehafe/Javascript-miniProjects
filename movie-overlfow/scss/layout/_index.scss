@@ -6,6 +6,11 @@
     0 12px 24px rgb(0 0 0 / 5%);
 }
 
+select,
+option {
+  font-family: inherit;
+}
+
 .header__nav-logo--svg {
   width: 40px;
   height: 40px;
@@ -168,6 +173,33 @@ header {
       max-width: 300px;
     }
 
+    &--options {
+      display: flex;
+      align-items: center;
+
+      & > select {
+        height: 100%;
+        border: var(--main-color);
+        background-color: var(--main-color);
+        color: #fff;
+        border-radius: 7px;
+
+        &:hover,
+        &:active {
+          background-color: #fff;
+          color: var(--main-color);
+          transition: background-color 0.5s ease;
+        }
+      }
+      &-page {
+        // height: 100%;
+      }
+
+      &-select-year {
+        // height: 100%;
+      }
+    }
+
     &--button {
       margin: 0;
       padding: 0.5rem 1rem;
@@ -189,6 +221,32 @@ header {
   }
 }
 
+// scroll top 버튼
+.scroll-top {
+  position: fixed;
+  // display: none;
+  padding: 10px;
+  text-align: center;
+  bottom: 20px;
+  right: 20px;
+  border-radius: 50%;
+  background-color: var(--main-color);
+
+  &:hover {
+    background-color: #fff;
+  }
+  &__btn {
+    & > span {
+      font-weight: 600;
+      color: #fff;
+
+      &:hover {
+        color: var(--main-color);
+      }
+    }
+  }
+}
+
 // error
 .error {
   text-align: center;
@@ -197,23 +255,60 @@ header {
 
 // loading
 
-@keyframes spinner {
-  to {
-    transform: rotate(360deg);
+$offset: 187;
+$duration: 1.4s;
+
+.spinner {
+  animation: rotator $duration linear infinite;
+}
+
+@keyframes rotator {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(270deg);
   }
 }
 
-.loading {
-  width: 6rem;
-  height: 6rem;
-  border: 5px solid var(--grey-400);
-  border-radius: 50%;
-  border-top-color: var(--primary-500);
-  animation: spinner 0.6s linear infinite;
+.path {
+  stroke-dasharray: $offset;
+  stroke-dashoffset: 0;
+  transform-origin: center;
+  animation: dash $duration ease-in-out infinite,
+    colors ($duration * 4) ease-in-out infinite;
 }
-.loading {
-  margin: 0 auto;
-  margin-top: 4rem;
+
+@keyframes colors {
+  0% {
+    stroke: #4285f4;
+  }
+  25% {
+    stroke: #de3e35;
+  }
+  50% {
+    stroke: #f7c223;
+  }
+  75% {
+    stroke: #1b9a59;
+  }
+  100% {
+    stroke: #4285f4;
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dashoffset: $offset;
+  }
+  50% {
+    stroke-dashoffset: $offset/4;
+    transform: rotate(135deg);
+  }
+  100% {
+    stroke-dashoffset: $offset;
+    transform: rotate(450deg);
+  }
 }
 
 .section {
@@ -225,6 +320,9 @@ header {
   border-radius: 7px;
 
   &__container {
+    min-width: 100%;
+    min-height: 300px;
+    max-width: auto;
     margin: 0 auto;
     padding: 10px;
     display: flex;
@@ -232,16 +330,22 @@ header {
 
     & > img {
       width: 50px;
+
       // margin: 0 auto;
     }
     &-movie-card-container {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
       row-gap: 20px;
-      place-items: center;
-
+      column-gap: 30px;
       width: 100%;
       padding: 10px;
+
+      & > img {
+        object-fit: cover;
+        width: 200px;
+      }
     }
 
     &-movie-card {
@@ -251,12 +355,25 @@ header {
       box-shadow: var(--box-shadow);
       border-radius: 7px;
       overflow: hidden;
+      transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
 
+      &:hover {
+        transform: translateY(-10px);
+      }
+
+      button {
+        margin: 0 auto;
+      }
       &--img {
-        object-fit: contain;
+        margin: 0 auto;
+        width: 100%;
+        height: 310px;
+        overflow: hidden;
+        border-radius: 10px;
 
         &:hover {
-          background: rgba(0, 0, 0, 0.7);
+          cursor: pointer;
+          // background: rgba(0, 0, 0, 0.7);
         }
       }
 
@@ -364,7 +481,6 @@ header {
 
   &-body {
     display: flex;
-
     padding: 10px 15px;
 
     img {
@@ -377,7 +493,6 @@ header {
 #overlay {
   position: fixed;
   opacity: 0;
-
   transition: 200ms ease-in-out;
 
   top: 0;
@@ -417,7 +532,6 @@ header {
   .section {
     &__container {
       &-movie-card-container {
-        grid-template-columns: repeat(3, 1fr);
       }
     }
   }
@@ -440,7 +554,6 @@ header {
     &__container {
       //
       &-movie-card-container {
-        grid-template-columns: repeat(2, 1fr);
       }
     }
   }
@@ -457,7 +570,6 @@ header {
     &__container {
       //
       &-movie-card-container {
-        grid-template-columns: repeat(1, 1fr);
       }
     }
   }
